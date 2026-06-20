@@ -1,0 +1,289 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'products_state.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+// dart format off
+T _$identity<T>(T value) => value;
+/// @nodoc
+mixin _$ProductsState {
+
+ StateStatus get status; List<Product> get products; Product? get selectedProduct; String? get errorMessage; String get searchQuery;
+/// Create a copy of ProductsState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ProductsStateCopyWith<ProductsState> get copyWith => _$ProductsStateCopyWithImpl<ProductsState>(this as ProductsState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductsState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.products, products)&&(identical(other.selectedProduct, selectedProduct) || other.selectedProduct == selectedProduct)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(products),selectedProduct,errorMessage,searchQuery);
+
+@override
+String toString() {
+  return 'ProductsState(status: $status, products: $products, selectedProduct: $selectedProduct, errorMessage: $errorMessage, searchQuery: $searchQuery)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ProductsStateCopyWith<$Res>  {
+  factory $ProductsStateCopyWith(ProductsState value, $Res Function(ProductsState) _then) = _$ProductsStateCopyWithImpl;
+@useResult
+$Res call({
+ StateStatus status, List<Product> products, Product? selectedProduct, String? errorMessage, String searchQuery
+});
+
+
+
+
+}
+/// @nodoc
+class _$ProductsStateCopyWithImpl<$Res>
+    implements $ProductsStateCopyWith<$Res> {
+  _$ProductsStateCopyWithImpl(this._self, this._then);
+
+  final ProductsState _self;
+  final $Res Function(ProductsState) _then;
+
+/// Create a copy of ProductsState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? products = null,Object? selectedProduct = freezed,Object? errorMessage = freezed,Object? searchQuery = null,}) {
+  return _then(_self.copyWith(
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as StateStatus,products: null == products ? _self.products : products // ignore: cast_nullable_to_non_nullable
+as List<Product>,selectedProduct: freezed == selectedProduct ? _self.selectedProduct : selectedProduct // ignore: cast_nullable_to_non_nullable
+as Product?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ProductsState].
+extension ProductsStatePatterns on ProductsState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ProductsState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ProductsState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ProductsState value)  $default,){
+final _that = this;
+switch (_that) {
+case _ProductsState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ProductsState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ProductsState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StateStatus status,  List<Product> products,  Product? selectedProduct,  String? errorMessage,  String searchQuery)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ProductsState() when $default != null:
+return $default(_that.status,_that.products,_that.selectedProduct,_that.errorMessage,_that.searchQuery);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StateStatus status,  List<Product> products,  Product? selectedProduct,  String? errorMessage,  String searchQuery)  $default,) {final _that = this;
+switch (_that) {
+case _ProductsState():
+return $default(_that.status,_that.products,_that.selectedProduct,_that.errorMessage,_that.searchQuery);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StateStatus status,  List<Product> products,  Product? selectedProduct,  String? errorMessage,  String searchQuery)?  $default,) {final _that = this;
+switch (_that) {
+case _ProductsState() when $default != null:
+return $default(_that.status,_that.products,_that.selectedProduct,_that.errorMessage,_that.searchQuery);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _ProductsState implements ProductsState {
+  const _ProductsState({this.status = StateStatus.initial, final  List<Product> products = const [], this.selectedProduct, this.errorMessage, this.searchQuery = ''}): _products = products;
+  
+
+@override@JsonKey() final  StateStatus status;
+ final  List<Product> _products;
+@override@JsonKey() List<Product> get products {
+  if (_products is EqualUnmodifiableListView) return _products;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_products);
+}
+
+@override final  Product? selectedProduct;
+@override final  String? errorMessage;
+@override@JsonKey() final  String searchQuery;
+
+/// Create a copy of ProductsState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ProductsStateCopyWith<_ProductsState> get copyWith => __$ProductsStateCopyWithImpl<_ProductsState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductsState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._products, _products)&&(identical(other.selectedProduct, selectedProduct) || other.selectedProduct == selectedProduct)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_products),selectedProduct,errorMessage,searchQuery);
+
+@override
+String toString() {
+  return 'ProductsState(status: $status, products: $products, selectedProduct: $selectedProduct, errorMessage: $errorMessage, searchQuery: $searchQuery)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ProductsStateCopyWith<$Res> implements $ProductsStateCopyWith<$Res> {
+  factory _$ProductsStateCopyWith(_ProductsState value, $Res Function(_ProductsState) _then) = __$ProductsStateCopyWithImpl;
+@override @useResult
+$Res call({
+ StateStatus status, List<Product> products, Product? selectedProduct, String? errorMessage, String searchQuery
+});
+
+
+
+
+}
+/// @nodoc
+class __$ProductsStateCopyWithImpl<$Res>
+    implements _$ProductsStateCopyWith<$Res> {
+  __$ProductsStateCopyWithImpl(this._self, this._then);
+
+  final _ProductsState _self;
+  final $Res Function(_ProductsState) _then;
+
+/// Create a copy of ProductsState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? products = null,Object? selectedProduct = freezed,Object? errorMessage = freezed,Object? searchQuery = null,}) {
+  return _then(_ProductsState(
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as StateStatus,products: null == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
+as List<Product>,selectedProduct: freezed == selectedProduct ? _self.selectedProduct : selectedProduct // ignore: cast_nullable_to_non_nullable
+as Product?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on
