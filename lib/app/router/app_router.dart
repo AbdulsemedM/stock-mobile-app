@@ -7,8 +7,11 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../../core/di/injection.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/buttons/app_icon_button.dart';
+import '../../features/onboarding/data/repositories/onboarding_repository.dart';
+import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/cycle_counts/presentation/pages/count_entry_page.dart';
 import '../../features/cycle_counts/presentation/pages/count_list_page.dart';
 import '../../features/dashboard/presentation/pages/dashboard_page.dart';
@@ -32,6 +35,7 @@ import '../../features/settings/presentation/pages/warehouse_selector_page.dart'
 import '../../features/transfers/presentation/pages/transfer_detail_page.dart';
 import '../../features/transfers/presentation/pages/transfer_list_page.dart';
 import '../pages/more_page.dart';
+import '../pages/splash_page.dart';
 import 'route_paths.dart';
 
 /// Notifies [GoRouter] when auth state changes.
@@ -64,25 +68,55 @@ final GlobalKey<NavigatorState> _moreNavigatorKey =
 /// Application router with auth guard and bottom navigation shell.
 late final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
-  initialLocation: RoutePaths.dashboard,
+  initialLocation: RoutePaths.splash,
   refreshListenable: GoRouterRefreshStream(getIt<AuthBloc>().stream),
   redirect: (context, state) {
+    final onboardingCompleted = getIt<OnboardingRepository>().isCompleted;
+    final isSplashRoute = state.matchedLocation == RoutePaths.splash;
+    final isOnboardingRoute = state.matchedLocation == RoutePaths.onboarding;
     final isAuthenticated = getIt<AuthBloc>().state.isAuthenticated;
     final isLoginRoute = state.matchedLocation == RoutePaths.login;
+    final isSignupRoute = state.matchedLocation == RoutePaths.signup;
+    final isAuthRoute = isLoginRoute || isSignupRoute;
 
-    if (!isAuthenticated && !isLoginRoute) {
+    if (isSplashRoute) {
+      return null;
+    }
+
+    if (!onboardingCompleted && !isOnboardingRoute) {
+      return RoutePaths.onboarding;
+    }
+    if (onboardingCompleted && isOnboardingRoute) {
+      return isAuthenticated ? RoutePaths.dashboard : RoutePaths.login;
+    }
+    if (!isAuthenticated && !isAuthRoute && !isOnboardingRoute) {
       return RoutePaths.login;
     }
-    if (isAuthenticated && isLoginRoute) {
+    if (isAuthenticated && isAuthRoute) {
       return RoutePaths.dashboard;
     }
     return null;
   },
   routes: [
     GoRoute(
+      path: RoutePaths.splash,
+      name: RoutePaths.splashName,
+      builder: (context, state) => const SplashPage(),
+    ),
+    GoRoute(
+      path: RoutePaths.onboarding,
+      name: RoutePaths.onboardingName,
+      builder: (context, state) => const OnboardingPage(),
+    ),
+    GoRoute(
       path: RoutePaths.login,
       name: RoutePaths.loginName,
       builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: RoutePaths.signup,
+      name: RoutePaths.signupName,
+      builder: (context, state) => const SignupPage(),
     ),
     GoRoute(
       path: RoutePaths.scan,

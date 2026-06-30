@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  static const Color primary = Color(0xFF2563EB);
-  static const Color primaryDark = Color(0xFF1E40AF);
-  static const Color primaryLight = Color(0xFFDBEAFE);
+  static const Color primary = Color(0xFF116D18);
+  static const Color primaryDark = Color(0xFF0C5112);
+  static const Color primaryLight = Color(0xFFE8F5EA);
+  static const Color secondary = Color(0xFFF6A609);
   static const Color accent = Color(0xFF0EA5E9);
   static const Color success = Color(0xFF16A34A);
   static const Color successBg = Color(0xFFDCFCE7);

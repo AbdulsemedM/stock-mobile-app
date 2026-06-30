@@ -66,6 +66,8 @@ import 'package:stockflow/features/notifications/data/repositories/notifications
     as _i1073;
 import 'package:stockflow/features/notifications/presentation/cubit/notifications_cubit.dart'
     as _i22;
+import 'package:stockflow/features/onboarding/data/repositories/onboarding_repository.dart'
+    as _i677;
 import 'package:stockflow/features/picking/data/datasources/picking_remote_datasource.dart'
     as _i931;
 import 'package:stockflow/features/picking/data/repositories/picking_repository_impl.dart'
@@ -134,6 +136,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i594.LoggingInterceptor>(
       () => _i594.LoggingInterceptor(),
+    );
+    gh.lazySingleton<_i677.OnboardingRepository>(
+      () => _i677.OnboardingRepository(gh<_i460.SharedPreferences>()),
     );
     gh.lazySingleton<_i1039.AuthInterceptor>(
       () => _i1039.AuthInterceptor(gh<_i558.FlutterSecureStorage>()),

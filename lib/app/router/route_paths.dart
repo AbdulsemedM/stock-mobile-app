@@ -2,7 +2,10 @@
 class RoutePaths {
   RoutePaths._();
 
+  static const String splash = '/splash';
+  static const String onboarding = '/onboarding';
   static const String login = '/login';
+  static const String signup = '/signup';
   static const String dashboard = '/dashboard';
   static const String inventory = '/inventory';
   static const String inventoryDetail = '/inventory/:id';
@@ -27,7 +30,10 @@ class RoutePaths {
   static const String settings = '/settings';
   static const String warehouseSelector = '/settings/warehouses';
 
+  static const String splashName = 'splash';
+  static const String onboardingName = 'onboarding';
   static const String loginName = 'login';
+  static const String signupName = 'signup';
   static const String dashboardName = 'dashboard';
   static const String inventoryName = 'inventory';
   static const String ordersName = 'orders';

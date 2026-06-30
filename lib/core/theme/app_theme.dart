@@ -18,7 +18,7 @@ class AppTheme {
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         onPrimary: Colors.white,
-        secondary: AppColors.accent,
+        secondary: AppColors.secondary,
         error: AppColors.error,
         surface: AppColors.surface,
         onSurface: AppColors.neutral900,
