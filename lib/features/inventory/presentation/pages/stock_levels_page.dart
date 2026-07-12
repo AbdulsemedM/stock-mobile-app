@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:stockflow/app/router/route_paths.dart';
 import 'package:stockflow/core/di/injection.dart';
+import 'package:stockflow/core/theme/app_colors.dart';
 import 'package:stockflow/core/theme/app_spacing.dart';
 import 'package:stockflow/core/utils/state_status.dart';
 import 'package:stockflow/core/widgets/buttons/app_icon_button.dart';
@@ -11,14 +12,42 @@ import 'package:stockflow/core/widgets/feedback/app_snackbar.dart';
 import 'package:stockflow/core/widgets/feedback/empty_state_view.dart';
 import 'package:stockflow/core/widgets/feedback/error_state_view.dart';
 import 'package:stockflow/core/widgets/feedback/loading_indicator.dart';
+import 'package:stockflow/core/widgets/sales/app_search_bar.dart';
+import 'package:stockflow/core/widgets/sales/filter_sort_bar.dart';
+import 'package:stockflow/features/inventory/domain/entities/stock_level.dart';
 import 'package:stockflow/features/inventory/presentation/bloc/inventory_bloc.dart';
 import 'package:stockflow/features/inventory/presentation/bloc/inventory_event.dart';
 import 'package:stockflow/features/inventory/presentation/bloc/inventory_state.dart';
 import 'package:stockflow/features/inventory/presentation/widgets/stock_level_tile.dart';
 
 /// Stock levels list with warehouse filter and scan FAB.
-class StockLevelsPage extends StatelessWidget {
+class StockLevelsPage extends StatefulWidget {
   const StockLevelsPage({super.key});
+
+  @override
+  State<StockLevelsPage> createState() => _StockLevelsPageState();
+}
+
+class _StockLevelsPageState extends State<StockLevelsPage> {
+  final _searchController = TextEditingController();
+  String _searchQuery = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  List<StockLevel> _filter(List<StockLevel> levels) {
+    if (_searchQuery.isEmpty) return levels;
+    final q = _searchQuery.toLowerCase();
+    return levels
+        .where((l) =>
+            l.productName.toLowerCase().contains(q) ||
+            l.sku.toLowerCase().contains(q) ||
+            l.warehouseName.toLowerCase().contains(q))
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,59 +55,77 @@ class StockLevelsPage extends StatelessWidget {
       create: (_) =>
           getIt<InventoryBloc>()..add(const InventoryEvent.loadRequested()),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Inventory')),
+        backgroundColor: AppColors.neutral50,
         floatingActionButton: AppIconButton(
           onPressed: () => context.push(RoutePaths.scan),
         ),
-        body: BlocConsumer<InventoryBloc, InventoryState>(
-          listener: (context, state) {
-            if (state.errorMessage != null &&
-                state.status == StateStatus.failure &&
-                state.stockLevels.isEmpty) {
-              return;
-            }
-            if (state.errorMessage != null) {
-              AppSnackbar.error(
-                context,
-                state.errorMessage!,
-                onRetry: () => context
-                    .read<InventoryBloc>()
-                    .add(const InventoryEvent.loadRequested()),
-              );
-            }
-          },
-          builder: (context, state) {
-            if (state.status == StateStatus.loading &&
-                state.stockLevels.isEmpty) {
-              return const LoadingIndicator.list();
-            }
+        body: SafeArea(
+          child: BlocConsumer<InventoryBloc, InventoryState>(
+            listener: (context, state) {
+              if (state.errorMessage != null &&
+                  state.status == StateStatus.failure &&
+                  state.stockLevels.isEmpty) {
+                return;
+              }
+              if (state.errorMessage != null) {
+                AppSnackbar.error(
+                  context,
+                  state.errorMessage!,
+                  onRetry: () => context
+                      .read<InventoryBloc>()
+                      .add(const InventoryEvent.loadRequested()),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state.status == StateStatus.loading &&
+                  state.stockLevels.isEmpty) {
+                return const LoadingIndicator.list();
+              }
 
-            if (state.status == StateStatus.failure &&
-                state.stockLevels.isEmpty) {
-              return ErrorStateView(
-                title: 'Unable to load inventory',
-                description: state.errorMessage ?? 'Please try again',
-                onRetry: () => context
-                    .read<InventoryBloc>()
-                    .add(const InventoryEvent.loadRequested()),
-              );
-            }
+              if (state.status == StateStatus.failure &&
+                  state.stockLevels.isEmpty) {
+                return ErrorStateView(
+                  title: 'Unable to load inventory',
+                  description: state.errorMessage ?? 'Please try again',
+                  onRetry: () => context
+                      .read<InventoryBloc>()
+                      .add(const InventoryEvent.loadRequested()),
+                );
+              }
 
-            return Column(
-              children: [
-                if (state.warehouseOptions.isNotEmpty)
-                  _WarehouseFilterBar(state: state),
-                Expanded(child: _buildStockList(context, state)),
-              ],
-            );
-          },
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(AppSpacing.base),
+                    child: AppSearchBar(
+                      controller: _searchController,
+                      hint: 'Search inventory',
+                      onChanged: (q) => setState(() => _searchQuery = q),
+                      onScan: () => context.push(RoutePaths.scan),
+                    ),
+                  ),
+                  FilterSortBar(
+                    onFilter: () {},
+                    onSort: () {},
+                    onCollection: () {},
+                  ),
+                  if (state.warehouseOptions.isNotEmpty)
+                    _WarehouseFilterBar(state: state),
+                  Expanded(child: _buildStockList(context, state)),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
   }
 
   Widget _buildStockList(BuildContext context, InventoryState state) {
-    if (state.stockLevels.isEmpty) {
+    final filtered = _filter(state.stockLevels);
+
+    if (filtered.isEmpty) {
       return EmptyStateView(
         icon: LucideIcons.warehouse,
         title: 'No stock levels yet',
@@ -96,7 +143,7 @@ class StockLevelsPage extends StatelessWidget {
       onRefresh: () async {
         context.read<InventoryBloc>().add(const InventoryEvent.loadRequested());
         await context.read<InventoryBloc>().stream.firstWhere(
-              (state) => state.status != StateStatus.loading,
+              (s) => s.status != StateStatus.loading,
             );
       },
       child: ListView.separated(
@@ -106,10 +153,10 @@ class StockLevelsPage extends StatelessWidget {
           AppSpacing.base,
           AppSpacing.base,
         ),
-        itemCount: state.stockLevels.length,
+        itemCount: filtered.length,
         separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
         itemBuilder: (context, index) {
-          return StockLevelTile(stockLevel: state.stockLevels[index]);
+          return StockLevelTile(stockLevel: filtered[index]);
         },
       ),
     );
@@ -126,7 +173,7 @@ class _WarehouseFilterBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.base,
-        AppSpacing.base,
+        AppSpacing.sm,
         AppSpacing.base,
         0,
       ),

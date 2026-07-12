@@ -5,18 +5,22 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../../app/router/route_paths.dart';
 import '../../../../core/di/injection.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/utils/state_status.dart';
 import '../../../../core/widgets/feedback/app_snackbar.dart';
 import '../../../../core/widgets/feedback/error_state_view.dart';
 import '../../../../core/widgets/feedback/loading_indicator.dart';
-import '../../../../core/widgets/layout/app_card.dart';
+import '../../../../core/widgets/sales/menu_list_tile.dart';
+import '../../../../core/widgets/sales/profile_header.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
+import '../../../onboarding/presentation/onboarding_assets.dart';
 import '../cubit/settings_cubit.dart';
 import '../cubit/settings_state.dart';
 
-/// Settings screen.
+/// Settings screen with profile-style layout.
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
@@ -25,7 +29,7 @@ class SettingsPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<SettingsCubit>()..load(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Settings')),
+        backgroundColor: AppColors.neutral50,
         body: BlocConsumer<SettingsCubit, SettingsState>(
           listener: (context, state) {
             if (state.errorMessage != null) {
@@ -55,31 +59,60 @@ class SettingsPage extends StatelessWidget {
                 .map((w) => w.name)
                 .firstOrNull;
 
-            return ListView(
-              padding: const EdgeInsets.all(AppSpacing.base),
+            return Column(
               children: [
-                AppCard(
-                  onTap: () => context.push(RoutePaths.warehouseSelector),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: const Icon(LucideIcons.warehouse),
-                    title: const Text('Default Warehouse'),
-                    subtitle: Text(selectedName ?? 'Not selected'),
-                    trailing: const Icon(Icons.chevron_right),
-                  ),
+                ProfileHeader(
+                  storeName: 'StockFlow Admin',
+                  address: 'Warehouse & distribution management',
+                  logoAsset: OnboardingAssets.logo,
                 ),
-                const SizedBox(height: AppSpacing.lg),
-                AppCard(
-                  onTap: () {
-                    context.read<AuthBloc>().add(
-                          const AuthEvent.logoutRequested(),
-                        );
-                    context.go(RoutePaths.login);
-                  },
-                  child: const ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: Icon(LucideIcons.logOut, color: Colors.red),
-                    title: Text('Sign Out'),
+                Expanded(
+                  child: Transform.translate(
+                    offset: const Offset(0, -16),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: AppColors.surface,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(AppRadius.lg),
+                        ),
+                      ),
+                      child: ListView(
+                        padding: const EdgeInsets.all(AppSpacing.base),
+                        children: [
+                          MenuListTile(
+                            icon: LucideIcons.warehouse,
+                            label: 'Default Warehouse',
+                            onTap: () =>
+                                context.push(RoutePaths.warehouseSelector),
+                          ),
+                          if (selectedName != null)
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: AppSpacing.lg,
+                                bottom: AppSpacing.sm,
+                              ),
+                              child: Text(
+                                selectedName,
+                                style: const TextStyle(
+                                  color: AppColors.neutral600,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          const SizedBox(height: AppSpacing.lg),
+                          MenuListTile(
+                            icon: LucideIcons.logOut,
+                            label: 'Sign Out',
+                            onTap: () {
+                              context
+                                  .read<AuthBloc>()
+                                  .add(const AuthEvent.logoutRequested());
+                              context.go(RoutePaths.login);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],

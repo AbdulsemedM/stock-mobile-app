@@ -30,6 +30,31 @@ class RoutePaths {
   static const String settings = '/settings';
   static const String warehouseSelector = '/settings/warehouses';
 
+  // Salesperson shell routes
+  static const String home = '/home';
+  static const String warehouse = '/warehouse';
+  static const String shop = '/shop';
+  static const String credit = '/credit';
+  static const String profile = '/profile';
+
+  // Salesperson sub-routes
+  static const String sale = '/sale';
+  static const String salesHistory = '/sales-history';
+  static const String generalHistory = '/general-history';
+  static const String bulkAction = '/bulk-action';
+  static const String accounts = '/accounts';
+  static const String salesReport = '/sales-report';
+  static const String addStock = '/add-stock';
+  static const String creditDetail = '/credit-detail';
+  static const String customers = '/customers';
+  static const String expenses = '/expenses';
+  static const String collections = '/collections';
+  static const String suppliers = '/suppliers';
+  static const String branches = '/branches';
+  static const String userManagement = '/user-management';
+  static const String myCredits = '/my-credits';
+  static const String tools = '/tools';
+
   static const String splashName = 'splash';
   static const String onboardingName = 'onboarding';
   static const String loginName = 'login';
@@ -39,6 +64,11 @@ class RoutePaths {
   static const String ordersName = 'orders';
   static const String moreName = 'more';
   static const String scanName = 'scan';
+  static const String homeName = 'home';
+  static const String warehouseName = 'warehouse';
+  static const String shopName = 'shop';
+  static const String creditName = 'credit';
+  static const String profileName = 'profile';
 
   static String inventoryDetailPath(String id) =>
       inventoryDetail.replaceFirst(':id', id);
@@ -66,4 +96,10 @@ class RoutePaths {
 
   static String invoiceDetailPath(String id) =>
       invoiceDetail.replaceFirst(':id', id);
+
+  static String creditDetailPath(String id) =>
+      creditDetail.replaceFirst(':id', id);
+
+  static String addStockPath({required String location}) =>
+      '$addStock?location=$location';
 }

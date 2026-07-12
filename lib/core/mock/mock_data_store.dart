@@ -17,12 +17,15 @@ class MockDataStore {
 
   static const mockToken = 'mock-jwt-token';
 
-  static User mockUser({String email = 'demo@stockflow.com'}) => User(
-        id: 'user-1',
-        email: email,
-        name: 'Demo User',
-        role: 'warehouse_manager',
-      );
+  static User mockUser({String email = 'demo@stockflow.com'}) {
+    final isSales = email.toLowerCase().contains('sales');
+    return User(
+      id: isSales ? 'user-sales-1' : 'user-1',
+      email: email,
+      name: isSales ? 'AHMED MERI TECH (Sales)' : 'Demo Admin',
+      role: isSales ? 'salesperson' : 'admin',
+    );
+  }
 
   static final List<ProductModel> products = [
     const ProductModel(
@@ -498,4 +501,163 @@ class MockDataStore {
       return task.copyWith(quantityPicked: picked, status: status);
     }).toList();
   }
+
+  // --- Salesperson mock data ---
+
+  static const storeProfile = (
+    name: 'ABAY MART',
+    address:
+        'Addis Ababa Zone/Sub City - Wored- 05KebeleHouse No. አዲስ ከ/ቁ TH-0',
+  );
+
+  static const salesHomeSummary = (
+    salesTotal: 0.0,
+    expiringCount: 0,
+    lowStockWarehouse: 17,
+    lowStockShop: 2647,
+  );
+
+  static final List<(
+    String id,
+    String name,
+    String partNumber,
+    String location,
+    String locationType,
+    double price,
+    double quantity,
+    String? imageUrl,
+  )> stockItems = [
+    (
+      'stock-1',
+      'sanford10 in1food processor',
+      '57190',
+      'ANANIYA 302 STOCK (Warehouse)',
+      'warehouse',
+      8500.0,
+      0.0,
+      null,
+    ),
+    (
+      'stock-2',
+      'wet set2.77*2.21*1.37',
+      '57195',
+      'Megenagna Shop (Shop)',
+      'shop',
+      33500.0,
+      1.0,
+      null,
+    ),
+    (
+      'stock-3',
+      'Steel Component',
+      'CMP-003',
+      'Main Distribution Center (Warehouse)',
+      'warehouse',
+      875.0,
+      12.0,
+      null,
+    ),
+    (
+      'stock-4',
+      'Premium Gadget',
+      'GDG-002',
+      'Megenagna Shop (Shop)',
+      'shop',
+      4950.0,
+      3.0,
+      null,
+    ),
+  ];
+
+  static final List<(
+    String id,
+    String customerName,
+    double amount,
+    int itemCount,
+    String status,
+    DateTime date,
+  )> creditEntries = [
+    (
+      'credit-1',
+      'አባሪያቆስ',
+      10500.0,
+      1,
+      'Unpaid',
+      DateTime(2026, 7, 9, 18, 2),
+    ),
+    (
+      'credit-2',
+      'sarbet',
+      10500.0,
+      1,
+      'Unpaid',
+      DateTime(2026, 7, 8, 14, 30),
+    ),
+    (
+      'credit-3',
+      'N/A',
+      8500.0,
+      2,
+      'Unpaid',
+      DateTime(2026, 7, 7, 10, 15),
+    ),
+  ];
+
+  static double get totalCreditDue =>
+      creditEntries.fold(0.0, (sum, e) => sum + e.$3);
+
+  static final List<(String id, String name, String subtitle)> customers = [
+    ('cust-1', 'አባሪያቆስ', '+251 91 123 4567'),
+    ('cust-2', 'sarbet', '+251 92 234 5678'),
+    ('cust-3', 'Meron Tadesse', '+251 93 345 6789'),
+  ];
+
+  static final List<(String id, String title, String amount, String date)>
+      expenses = [
+    ('exp-1', 'Transport', '500.00', 'Jul 10, 2026'),
+    ('exp-2', 'Office supplies', '1,200.00', 'Jul 8, 2026'),
+  ];
+
+  static final List<(String id, String title, String amount, String date)>
+      collections = [
+    ('col-1', 'Morning collection', '25,000.00', 'Jul 11, 2026'),
+    ('col-2', 'Afternoon collection', '18,500.00', 'Jul 10, 2026'),
+  ];
+
+  static final List<(String id, String name, String phone)> suppliers = [
+    ('sup-1', 'Sanford Trading', '+251 11 551 2345'),
+    ('sup-2', 'East Import Co.', '+251 11 552 3456'),
+  ];
+
+  static final List<(String id, String name, String address)> branches = [
+    ('br-1', 'Megenagna Shop', 'Megenagna, Addis Ababa'),
+    ('br-2', 'ANANIYA 302 STOCK', 'Ananiya, Addis Ababa'),
+  ];
+
+  static final List<(String id, String name, String role)> users = [
+    ('usr-1', 'AHMED MERI TECH', 'Sales'),
+    ('usr-2', 'Demo Admin', 'Admin'),
+  ];
+
+  static final List<(String id, String title, String amount, String date)>
+      salesHistory = [
+    ('sh-1', 'Sale #1042', '10,500.00', 'Jul 9, 2026'),
+    ('sh-2', 'Sale #1041', '33,500.00', 'Jul 8, 2026'),
+  ];
+
+  static final List<(String id, String title, String description, String date)>
+      generalHistory = [
+    (
+      'gh-1',
+      'Stock transfer',
+      'Moved 5 items to shop',
+      'Jul 9, 2026',
+    ),
+    (
+      'gh-2',
+      'Price update',
+      'Updated Premium Gadget price',
+      'Jul 7, 2026',
+    ),
+  ];
 }

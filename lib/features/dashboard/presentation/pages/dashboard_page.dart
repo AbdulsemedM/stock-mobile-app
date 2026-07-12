@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../../core/di/injection.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/utils/state_status.dart';
 import '../../../../core/widgets/feedback/app_snackbar.dart';
@@ -25,7 +26,12 @@ class DashboardPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<DashboardCubit>()..load(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Dashboard')),
+        backgroundColor: AppColors.neutral50,
+        appBar: AppBar(
+          title: const Text('Dashboard'),
+          backgroundColor: AppColors.neutral50,
+          elevation: 0,
+        ),
         body: BlocConsumer<DashboardCubit, DashboardState>(
           listener: (context, state) {
             if (state.errorMessage != null) {

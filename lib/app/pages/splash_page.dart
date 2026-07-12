@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/auth/role_routes.dart';
 import '../../core/di/injection.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/state_status.dart';
@@ -44,7 +45,7 @@ class _SplashPageState extends State<SplashPage> {
     if (!onboardingCompleted) {
       context.go(RoutePaths.onboarding);
     } else if (isAuthenticated) {
-      context.go(RoutePaths.dashboard);
+      context.go(RoleRoutes.homeFor(authBloc.state.user));
     } else {
       context.go(RoutePaths.login);
     }

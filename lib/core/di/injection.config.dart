@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -92,6 +92,22 @@ import 'package:stockflow/features/purchase_orders/domain/repositories/purchase_
     as _i81;
 import 'package:stockflow/features/purchase_orders/presentation/bloc/purchase_order_bloc.dart'
     as _i15;
+import 'package:stockflow/features/sales/data/repositories/sales_repository_impl.dart'
+    as _i1026;
+import 'package:stockflow/features/sales/domain/repositories/sales_repository.dart'
+    as _i337;
+import 'package:stockflow/features/sales/presentation/cubit/credit_cubit.dart'
+    as _i849;
+import 'package:stockflow/features/sales/presentation/cubit/entity_list_cubit.dart'
+    as _i608;
+import 'package:stockflow/features/sales/presentation/cubit/home_cubit.dart'
+    as _i862;
+import 'package:stockflow/features/sales/presentation/cubit/profile_cubit.dart'
+    as _i125;
+import 'package:stockflow/features/sales/presentation/cubit/sale_cubit.dart'
+    as _i298;
+import 'package:stockflow/features/sales/presentation/cubit/stock_cubit.dart'
+    as _i907;
 import 'package:stockflow/features/sales_orders/data/datasources/sales_order_remote_datasource.dart'
     as _i544;
 import 'package:stockflow/features/sales_orders/data/repositories/sales_order_repository_impl.dart'
@@ -156,29 +172,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i315.AuthRemoteDataSource>(
       () => _i315.AuthRemoteDataSource(gh<_i239.DioClient>()),
     );
-    gh.lazySingleton<_i433.DashboardRemoteDataSource>(
-      () => _i433.DashboardRemoteDataSource(gh<_i239.DioClient>()),
-    );
-    gh.lazySingleton<_i744.ProductRemoteDataSource>(
-      () => _i744.ProductRemoteDataSource(gh<_i239.DioClient>()),
-    );
-    gh.lazySingleton<_i468.InventoryRemoteDataSource>(
-      () => _i468.InventoryRemoteDataSource(gh<_i239.DioClient>()),
-    );
-    gh.lazySingleton<_i908.PurchaseOrderRemoteDataSource>(
-      () => _i908.PurchaseOrderRemoteDataSource(gh<_i239.DioClient>()),
-    );
     gh.lazySingleton<_i398.CycleCountRemoteDataSource>(
       () => _i398.CycleCountRemoteDataSource(gh<_i239.DioClient>()),
     );
-    gh.lazySingleton<_i931.PickingRemoteDataSource>(
-      () => _i931.PickingRemoteDataSource(gh<_i239.DioClient>()),
+    gh.lazySingleton<_i433.DashboardRemoteDataSource>(
+      () => _i433.DashboardRemoteDataSource(gh<_i239.DioClient>()),
     );
-    gh.lazySingleton<_i544.SalesOrderRemoteDataSource>(
-      () => _i544.SalesOrderRemoteDataSource(gh<_i239.DioClient>()),
-    );
-    gh.lazySingleton<_i759.TransferRemoteDataSource>(
-      () => _i759.TransferRemoteDataSource(gh<_i239.DioClient>()),
+    gh.lazySingleton<_i468.InventoryRemoteDataSource>(
+      () => _i468.InventoryRemoteDataSource(gh<_i239.DioClient>()),
     );
     gh.lazySingleton<_i506.InvoiceRemoteDataSource>(
       () => _i506.InvoiceRemoteDataSource(gh<_i239.DioClient>()),
@@ -186,8 +187,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1014.NotificationsRemoteDataSource>(
       () => _i1014.NotificationsRemoteDataSource(gh<_i239.DioClient>()),
     );
+    gh.lazySingleton<_i931.PickingRemoteDataSource>(
+      () => _i931.PickingRemoteDataSource(gh<_i239.DioClient>()),
+    );
+    gh.lazySingleton<_i744.ProductRemoteDataSource>(
+      () => _i744.ProductRemoteDataSource(gh<_i239.DioClient>()),
+    );
+    gh.lazySingleton<_i908.PurchaseOrderRemoteDataSource>(
+      () => _i908.PurchaseOrderRemoteDataSource(gh<_i239.DioClient>()),
+    );
+    gh.lazySingleton<_i544.SalesOrderRemoteDataSource>(
+      () => _i544.SalesOrderRemoteDataSource(gh<_i239.DioClient>()),
+    );
     gh.lazySingleton<_i368.SettingsRemoteDataSource>(
       () => _i368.SettingsRemoteDataSource(gh<_i239.DioClient>()),
+    );
+    gh.lazySingleton<_i759.TransferRemoteDataSource>(
+      () => _i759.TransferRemoteDataSource(gh<_i239.DioClient>()),
+    );
+    gh.lazySingleton<_i337.SalesRepository>(
+      () => _i1026.SalesRepositoryImpl(gh<_i239.DioClient>()),
     );
     gh.lazySingleton<_i274.InvoiceRepository>(
       () => _i297.InvoiceRepositoryImpl(gh<_i506.InvoiceRemoteDataSource>()),
@@ -209,6 +228,24 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i603.CycleCountRepositoryImpl(
         gh<_i398.CycleCountRemoteDataSource>(),
       ),
+    );
+    gh.factory<_i849.CreditCubit>(
+      () => _i849.CreditCubit(gh<_i337.SalesRepository>()),
+    );
+    gh.factory<_i608.EntityListCubit>(
+      () => _i608.EntityListCubit(gh<_i337.SalesRepository>()),
+    );
+    gh.factory<_i862.HomeCubit>(
+      () => _i862.HomeCubit(gh<_i337.SalesRepository>()),
+    );
+    gh.factory<_i125.ProfileCubit>(
+      () => _i125.ProfileCubit(gh<_i337.SalesRepository>()),
+    );
+    gh.factory<_i298.SaleCubit>(
+      () => _i298.SaleCubit(gh<_i337.SalesRepository>()),
+    );
+    gh.factory<_i907.StockCubit>(
+      () => _i907.StockCubit(gh<_i337.SalesRepository>()),
     );
     gh.lazySingleton<_i916.TransferRepository>(
       () => _i237.TransferRepositoryImpl(gh<_i759.TransferRemoteDataSource>()),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../../core/auth/role_routes.dart';
 import '../../../../app/router/route_paths.dart';
 import '../../../../core/mock/mock_config.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -70,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
                 if (state.isAuthenticated && state.user != null) {
-                  context.go(RoutePaths.dashboard);
+                  context.go(RoleRoutes.homeFor(state.user));
                 }
                 if (state.errorMessage != null) {
                   AppSnackbar.error(context, state.errorMessage!);
@@ -177,6 +178,14 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
+                            ),
+                            const SizedBox(height: AppSpacing.lg),
+                            Text(
+                              'Demo: admin = demo@stockflow.com · salesperson = sales@stockflow.com',
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: AppColors.neutral400,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: AppSpacing.xl),
                           ],
